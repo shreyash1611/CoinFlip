@@ -1,0 +1,285 @@
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+}
+
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url('./images/blockroll_banner.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.container {
+  max-width: 800px;
+  margin: 4rem auto 2rem;
+  padding: 2rem;
+  background-color: rgba(0, 0, 50, 0.8);
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 100, 255, 0.5);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.acc-logo {
+  width: 100px; /* Adjust this value as needed */
+  height: auto;
+  margin-right: 15px;
+}
+
+.heading {
+  font-size: 3.5rem;
+  text-align: center;
+  color: #00BFFF;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+}
+
+.connect-button, .bet-button {
+  background: linear-gradient(45deg, #00CED1, #20B2AA);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.connect-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: auto;
+}
+
+.connect-button:hover, .bet-button:hover {
+  background: linear-gradient(45deg, #20B2AA, #00CED1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(32, 178, 170, 0.2);
+}
+
+.bet-button:disabled {
+  background: linear-gradient(45deg, #708090, #778899);
+  color: #A9A9A9;
+  cursor: not-allowed;
+}
+
+.info-text {
+  background-color: rgba(0, 0, 100, 0.3);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 18px;
+  color: #00BFFF;
+}
+
+.input-field, .select-field {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display:inline-block;
+  border: 2px solid #00BFFF;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 50, 0.3);
+  color: #00BFFF;
+  font-size: 16px;
+}
+
+.wallet-address {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(0, 0, 50, 0.5);
+  padding: 10px 15px;
+  border-radius: 25px;
+  color: #00BFFF;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.info-button {
+  background: linear-gradient(45deg, #4a90e2, #357ae8);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.info-button:hover {
+  background: linear-gradient(45deg, #00CED1, #4a90e2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(32, 178, 170, 0.2);
+}
+
+.info-button.left-corner {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+.info-button.bottom-left {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.bet-button, .info-button {
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-transform: none;
+  background-color: #00CED1;
+}
+
+.bet-button:hover, .info-button:hover {
+  opacity: 0.9;
+}
+
+.select-field {
+  background-color: transparent;
+  color: #00CED1;
+  border: 2px solid #00BFFF;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .heading {
+    font-size: 2.5rem;
+  }
+}
+
+.info-button.circular {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #00CED1;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.info-button.circular:hover {
+  background-color: #20B2AA;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.info-button.bottom-left {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+.coin-choice {
+  display: flex;
+  justify-content: center;
+  gap: 40px;  /* Increased gap between coins */
+  margin-bottom: 30px;  /* Increased margin below the coins */
+}
+
+.coin-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.coin-option input[type="radio"] {
+  display: none;
+}
+
+.coin-image {
+  width: 150px;  /* Increased size */
+  height: 150px;  /* Increased size */
+  border-radius: 50%;
+  border: 4px solid transparent;  /* Slightly thicker border */
+  transition: all 0.3s ease;
+  object-fit: cover;  /* Ensures the image covers the entire space */
+  background-color: #000;  /* Dark background for the coin */
+}
+
+.coin-option input[type="radio"]:checked + .coin-image {
+  border-color: #00CED1;
+  box-shadow: 0 0 20px #00CED1;  /* Increased glow effect */
+}
+
+.coin-option span {
+  margin-top: 15px;  /* Increased space between image and text */
+  color: #00BFFF;
+  font-weight: bold;
+  font-size: 18px;  /* Increased font size */
+}
