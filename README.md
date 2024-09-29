@@ -1,13 +1,9 @@
-# Sample Hardhat Project
+**CoinFlip**
+To use your own erc token, make changes in the deploy files and the config file. Ensure to make your own .env file to store the information to abstract and deploy
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+**Run**
+After all dependencies are installed, you can run this by moving into the frontend directory and building/running directly.
 
-Try running some of the following tasks:
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.js
-```
+Try this out on >> https://coinflip-n1xt.onrender.com/
+(reach out to me on discord @ idkanymoreatp)
