@@ -6,4 +6,4 @@ After all dependencies are installed, you can run this by moving into the fronte
 
 
 Try this out on >> https://coinflip-n1xt.onrender.com/
-(reach out to me on discord @ idkanymoreatp)
+(reach out to me on discord for the tokens used here ↑ @ idkanymoreatp)
