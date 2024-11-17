@@ -7,9 +7,10 @@ import metamaskLogo from './images/metamask.svg';
 import blockrollLogo from './images/blockroll_logo.png';
 import headsImage from './images/heads.png';
 import tailsImage from './images/tails.png';
+import poweredLogo from './images/accelogo.png';
 
-const contractAddress = "0x1862cAA65Ab1daa320297D77c91F006a38c798D2";
-const betTokenAddress = "0xad3757CeB2Bf16f6E15aAC6F0ff33f70B1D45Bd5";
+const contractAddress = "0x5E085D8c2fEaa91602Ad82eb2A2D2777E70EdF1f";
+const betTokenAddress = "0xaE6121b3c86D7307d962bBfeDEC9E04A3b3F293e";
 
 const AutoDismissMessage = ({ children, duration, onClose }) => {
   useEffect(() => {
@@ -26,10 +27,11 @@ const AutoDismissMessage = ({ children, duration, onClose }) => {
 const BetSuccessMessage = ({ message, onClose }) => {
   if (!message) return null;
   return (
-    <AutoDismissMessage duration={5000} onClose={onClose}>
-      <div className="bet-success-message">
+    <AutoDismissMessage duration={6000} onClose={onClose}>
+      <div className="bet-success-message popup-message">
         <span className="bet-success-icon">✅</span>
         <span className="bet-success-title">Bet Placed Successfully</span>
+        <br />
         <span className="bet-success-description">{message}</span>
       </div>
     </AutoDismissMessage>
@@ -39,7 +41,7 @@ const BetSuccessMessage = ({ message, onClose }) => {
 const VRFResultMessage = ({ result, onClose }) => {
   if (!result) return null;
   return (
-    <AutoDismissMessage duration={2000} onClose={onClose}>
+    <AutoDismissMessage duration={6000} onClose={onClose}>
       <div className="vrf-result">
         <span className="vrf-result-icon">🎲</span>
         <span className="vrf-result-title">VRF Result</span>
@@ -52,10 +54,11 @@ const VRFResultMessage = ({ result, onClose }) => {
 const BetResultMessage = ({ result, onClose }) => {
   if (!result) return null;
   return (
-    <AutoDismissMessage duration={2000} onClose={onClose}>
-      <div className="bet-result">
+    <AutoDismissMessage duration={6000} onClose={onClose}>
+      <div className="bet-result popup-message">
         <span className="bet-result-icon">💰</span>
         <span className="bet-result-title">Bet Result</span>
+        <br /> {/* Added line break */}
         <span className="bet-result-description">{result}</span>
       </div>
     </AutoDismissMessage>
@@ -65,7 +68,7 @@ const BetResultMessage = ({ result, onClose }) => {
 const ErrorMessage = ({ error, onClose }) => {
   if (!error) return null;
   return (
-    <div className="error-message">
+    <div className="error-message popup-message">
       <span className="error-message-icon">⚠️</span>
       <span className="error-message-title">Error</span>
       <span className="error-message-description">{error.message}</span>
@@ -221,7 +224,7 @@ function App() {
       
       if (allowance.lt(betAmountWei)) {
         console.log("Insufficient allowance, requesting approval...");
-        const approveTx = await tokenContract.approve(contractAddress, ethers.constants.MaxUint256);
+        const approveTx = await tokenContract.approve(contractAddress, betAmountWei);
         await approveTx.wait();
         console.log("Approval transaction completed");
       }
@@ -249,17 +252,25 @@ function App() {
       console.log("Calling bet with:", betChoice, betAmountWei.toString());
       const tx = await contract.bet(betChoice, betAmountWei);
       console.log("Transaction sent:", tx.hash);
+      
+      // Wait for the transaction to be confirmed
       await tx.wait();
       console.log("Transaction confirmed");
-      
+
+      // Update the player's balance immediately after placing the bet
+      setPlayerBalance(prevBalance => prevBalance - parseFloat(ethers.utils.formatEther(betAmountWei)));
+
+      // Update the state after the transaction is confirmed
       setBetSuccessMessage("Waiting for the result...");
-      
-      // Update balances immediately after placing bet
-      await updateBalances();
+
+      // Keep isBetting true until the result is received
+      // You might want to add a listener for the result here
+      // For example, you can set isBetting to false in the listener for BetResult
+
     } catch (err) {
       console.error(err);
       if (err.code === 'ACTION_REJECTED') {
-        setError({ message: " User denied transaction" });
+        setError({ message: "User denied transaction" });
       } else {
         setError(err);
       }
@@ -281,8 +292,18 @@ function App() {
       if (player.toLowerCase() === address.toLowerCase()) {
         const result = victory ? "won" : "lost";
         const amountEth = ethers.utils.formatEther(amount);
+        
+        // Update the player's balance based on the result
+        if (victory) {
+          // If the player won, add the winnings (2x the bet amount)
+          setPlayerBalance(prevBalance => prevBalance + 2 * parseFloat(betAmount));
+        } else {
+          // If the player lost, the balance is already deducted
+        }
+
         setBetResult(`You ${result} ${betAmount} tokens!`);
-        await updateBalances();
+        await updateBalances(); // Ensure contract balance is updated
+        setIsBetting(false);
       }
     });
 
@@ -314,6 +335,10 @@ function App() {
   return (
     <ChakraProvider>
       <div className="app-container">
+        <a href="https://accelchain.xyz" target="_blank" rel="noopener noreferrer" className="powered-by">
+          <Text className= "heading" color="white" fontSize="16px" textAlign="center">Powered By</Text>
+          <img src={poweredLogo} alt="Powered By" className="powered-logo" />
+        </a>
         {!address ? (
           <button className="connect-button" onClick={connectWallet}>Connect Wallet</button>
         ) : (
@@ -325,7 +350,7 @@ function App() {
         <div className="container">
           <div className="header-container">
             <img src={blockrollLogo} alt="BlockRoll Logo" className="acc-logo" />
-            <h1 className="heading">BlockRoll CoinFlip</h1>
+            <h1 className="heading doto-defi>">BlockRoll CoinFlip</h1>
           </div>
           {address && (
             <>
