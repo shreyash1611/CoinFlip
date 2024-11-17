@@ -48,8 +48,12 @@ body {
   text-align: center;
   color: #00BFFF;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  font-family: 'Arial', sans-serif;
+  font-family: "Doto", sans-serif;
+  font-optical-sizing: auto;
   font-weight: bold;
+  font-style: normal;
+  font-variation-settings:
+    "ROND" 0;
 }
 
 .connect-button, .bet-button {
@@ -282,4 +286,41 @@ body {
   color: #00BFFF;
   font-weight: bold;
   font-size: 18px;  /* Increased font size */
+}
+
+/* Add this new class for yellow text */
+.popup-message {
+  color: yellow; /* Set text color to yellow */
+}
+
+/* Update existing classes to include the new class */
+.bet-success-message .bet-success-title,
+.bet-success-message .bet-success-description,
+.bet-result .bet-result-title,
+.bet-result .bet-result-description,
+.error-message .error-message-title,
+.error-message .error-message-description {
+  /* Apply the yellow text class */
+  @extend .popup-message; /* This is a placeholder for your actual implementation */
+}
+
+.doto-defi {
+  font-family: "Doto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings:
+    "ROND" 0;
+}
+
+.powered-by {
+  position: absolute;
+  top: 20px; /* Adjust as needed */
+  left: 20px; /* Adjust as needed */
+  z-index: 10; /* Ensure it appears above other elements */
+}
+
+.powered-logo {
+  width: 50px; /* Adjust size as needed */
+  height: auto; /* Maintain aspect ratio */
 }
