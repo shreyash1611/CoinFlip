@@ -1,10 +1,21 @@
 body {
   margin: 0;
-  font-family: 'Roboto', 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Inter', 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url('https://media.istockphoto.com/id/1132091114/photo/red-casino-dice.jpg?s=612x612&w=0&k=20&c=PzVY32K0wRapEEd0Uv-k17iIp4GOI-SsrOTB_ytVjh0=') no-repeat center center fixed;
-  background-size: cover;
+  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  background: linear-gradient(120deg, #181c2b 0%, #232946 50%, #3a3f7d 100%);
+  background-size: 200% 200%;
+  animation: bgGradientMove 8s ease-in-out infinite;
+}
+
+@keyframes bgGradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 code {

@@ -91,6 +91,7 @@ function App() {
   const [vrfResult, setVrfResult] = useState(null);
   const [betSuccessMessage, setBetSuccessMessage] = useState(null);
   const [betResult, setBetResult] = useState(null);
+  const [showHowTo, setShowHowTo] = useState(false); // default closed
   const toast = useToast();
 
   useEffect(() => {
@@ -334,29 +335,53 @@ function App() {
 
   return (
     <ChakraProvider>
-      <div className="app-container">
-        <a href="https://accelchain.xyz" target="_blank" rel="noopener noreferrer" className="powered-by">
-          <Text className= "heading" color="white" fontSize="16px" textAlign="center">Powered By</Text>
-          <img src={poweredLogo} alt="Powered By" className="powered-logo" />
-        </a>
-        {!address ? (
-          <button className="connect-button" onClick={connectWallet}>Connect Wallet</button>
-        ) : (
-          <button className="info-button circular bottom-left" onClick={openVRFInfoLink}>
-            ?
-          </button>
-        )}
-        
-        <div className="container">
-          <div className="header-container">
-            <img src={blockrollLogo} alt="BlockRoll Logo" className="acc-logo" />
-            <h1 className="heading doto-defi>">BlockRoll CoinFlip</h1>
+      <div className="main-bg">
+        {/* TOP BAR */}
+        <div className="top-bar">
+          <div className="top-left">
+            <a href="https://accelchain.xyz" target="_blank" rel="noopener noreferrer" className="powered-by">
+              <img src={poweredLogo} alt="Powered By" className="powered-logo" />
+              <span>Powered By</span>
+            </a>
           </div>
-          {address && (
-            <>
-              <p className="info-text">Player Balance: {playerBalance} AccelCoin</p>
-              <p className="info-text">Contract Balance: {contractBalance} AccelCoin</p>
-              <div>
+          <div className="top-right">
+            {!address ? (
+              <button className="connect-button" onClick={connectWallet}>Connect Wallet</button>
+            ) : (
+              <span className="wallet-address">{address.slice(0, 6)}...{address.slice(-4)}</span>
+            )}
+          </div>
+        </div>
+        {/* FLOATING INFO BUTTON */}
+        <button className="info-button circular bottom-left" onClick={() => setShowHowTo(true)} title="How to Play">?</button>
+        {/* CENTRE CONTENT */}
+        <div className="center-content">
+          {!address ? (
+            <div className="project-desc glassy-panel">
+              <img src={blockrollLogo} alt="BlockRoll Logo" className="acc-logo" />
+              <h1 className="heading doto-defi">BlockRoll CoinFlip</h1>
+              <p className="desc-text">
+                Welcome to BlockRoll CoinFlip!<br />
+                A decentralized, on-chain coin flip game powered by secure randomness(using Chainlink VRF 2.5 seed).<br /><br />
+                <b>How it works:</b><br />
+                1. Connect your MetaMask wallet (Sepolia Testnet).<br />
+                2. Enter your bet and pick Heads or Tails.<br />
+                3. If your choice matches the VRF result, you win 2x your tokens.<br />
+                <br />
+                All bets are settled on-chain using secure randomness.
+              </p>
+            </div>
+          ) : (
+            <div className="bet-panel glassy-panel">
+              <div className="header-container">
+                <img src={blockrollLogo} alt="BlockRoll Logo" className="acc-logo" />
+                <h1 className="heading doto-defi">BlockRoll CoinFlip</h1>
+              </div>
+              <div className="balances">
+                <p className="info-text">Player Balance: {playerBalance} AccelCoin</p>
+                <p className="info-text">Contract Balance: {contractBalance} AccelCoin</p>
+              </div>
+              <div className="bet-form">
                 <input
                   className="input-field"
                   placeholder="Bet Amount"
@@ -399,9 +424,24 @@ function App() {
                 <BetResultMessage result={betResult} onClose={() => setBetResult(null)} />
                 <ErrorMessage error={error} onClose={() => setError(null)} />
               </div>
-            </>
+            </div>
           )}
         </div>
+        {/* HOW TO PLAY MODAL */}
+        {showHowTo && (
+          <div className="howto-modal" onClick={() => setShowHowTo(false)}>
+            <div className="howto-card" onClick={e => e.stopPropagation()}>
+              <button className="sidebar-close" onClick={() => setShowHowTo(false)}>×</button>
+              <strong>How to Play:</strong>
+              <ol>
+                <li>Connect your MetaMask wallet using the Connect button (on Sepolia Testnet).</li>
+                <li>Enter your bet amount and choose either <b>Heads</b> or <b>Tails</b>.</li>
+                <li>If your choice matches the VRF (random) result, you win <b>2x</b> your tokens. Otherwise, you win none.</li>
+              </ol>
+              <div className="how-to-footer">All bets are settled on-chain using secure randomness.</div>
+            </div>
+          </div>
+        )}
       </div>
     </ChakraProvider>
   );
